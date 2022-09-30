@@ -27,8 +27,8 @@ void main() {
   var DrawingStudent = Drawing();
 
   var me = Student("Alisher", AlgebraStudent);
-  var europeanBuddy = Student("Pieter", BiologyStudent);
-  var myDaughter = Student("Joanie", DrawingStudent);
+  var europeanBuddy = Student("Bahyt", BiologyStudent);
+  var myDaughter = Student("Daulet", DrawingStudent);
 
   final String roastOfTheDay = "at school";
 
