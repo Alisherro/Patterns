@@ -26,13 +26,13 @@ void main() {
   var BiologyStudent = Biology();
   var DrawingStudent = Drawing();
 
-  var me = Student("Alisher", AlgebraStudent);
-  var europeanBuddy = Student("Bahyt", BiologyStudent);
-  var myDaughter = Student("Daulet", DrawingStudent);
+  var alisher = Student("Alisher", AlgebraStudent);
+  var bahyt = Student("Bahyt", BiologyStudent);
+  var daulet = Student("Daulet", DrawingStudent);
 
   final String roastOfTheDay = "at school";
 
-  for (var person in [me, europeanBuddy, myDaughter]) {
+  for (var person in [alisher, bahyt, daulet]) {
     print("Hey ${person.name}, whats ur favorite subject?");
     print(
         "I'm enjoying ${person.preferredSubject.announce(roastOfTheDay)}!\r\n");
