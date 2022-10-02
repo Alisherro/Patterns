@@ -1,5 +1,5 @@
 abstract class Observer {
-  void handleEvent(List<String> vacancies);
+  void handleEvent(List<String> items);
 }
 
 abstract class Observed {
@@ -9,24 +9,22 @@ abstract class Observed {
 }
 
 class Subscriber implements Observer {
-  late String name;
-  Subscriber(this.name);
-  void handleEvent(List<String> vacancies) {
-    print('Dear ${name}, we have some changes in vacancies:\n ${vacancies}');
+  void handleEvent(List<String> items) {
+    print(items);
   }
 }
 
-class DevelopeJobSite implements Observed {
-  late List<String> vacancies;
-  late List<Observer> subscribers;
+class ShoppingCart implements Observed {
+  late List<String> items = [];
+  late List<Observer> subscribers = [];
 
-  void addVacancy(String vacancy) {
-    this.vacancies.add(vacancy);
+  void addItem(String item) {
+    this.items.add(item);
     notifyObservers();
   }
 
-  void removeVacancy(String vacancy) {
-    this.vacancies.remove(vacancy);
+  void removeItem(String item) {
+    this.items.remove(item);
     notifyObservers();
   }
 
@@ -38,7 +36,7 @@ class DevelopeJobSite implements Observed {
   @override
   void notifyObservers() {
     for (Observer observer in subscribers) {
-      observer.handleEvent(this.vacancies);
+      observer.handleEvent(this.items);
     }
   }
 
@@ -49,15 +47,11 @@ class DevelopeJobSite implements Observed {
 }
 
 void main() {
-  var jobSite = DevelopeJobSite();
-  jobSite.addVacancy('First Java Position');
-  jobSite.addVacancy('Second Java Position');
-
-  var firstSubscriber = Subscriber('Eugene Suleimanov');
-  var secondSubscriber = Subscriber('Petr Romanenko');
-
-  jobSite.addObserver(firstSubscriber);
-  jobSite.addObserver(secondSubscriber);
-
-  jobSite.addVacancy('Third Java Position');
+  var shoppingCart = ShoppingCart();
+  var firstSubscriber = Subscriber();
+  shoppingCart.addItem('Bread');
+  shoppingCart.addObserver(firstSubscriber);
+  shoppingCart.addItem('Milk');
+  shoppingCart.addItem('Chocolate');
+  shoppingCart.removeItem('Bread');
 }
