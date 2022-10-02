@@ -1,53 +1,63 @@
-class Notification {
-  late String message;
-  late DateTime timestamp;
-  Notification(this.message, this.timestamp);
-  Notification.forNow(this.message) {
-    timestamp = new DateTime.now();
-  }
+abstract class Observer {
+  void notification(String handle, String news);
 }
 
-class Observable {
-  late List<Observer> _observers;
+abstract class Subject {
+  void addSubscriber(Observer observer);
+  void removeSubscriber(Observer observer);
+  void notifySubscribers(String email);
+}
 
-  Observable([List<Observer>? observers]) {
-    _observers = observers ?? [];
+class Store implements Subject {
+  late List<Observer> observers = [];
+  late String name;
+  late String news;
+  Store(String name) {
+    this.name = name;
+    this.news = " - FROM : " + name;
+  }
+  String getName() {
+    return name;
   }
 
-  void registerObserver(Observer observer) {
-    _observers.add(observer);
+  void sendNews(String news) {
+    print("\nName: ${name}, News : ${news}\n");
+    notifySubscribers(news);
   }
 
-  void notify_observers(Notification notification) {
-    for (var observer in _observers) {
-      observer.notify(notification);
+  void addSubscriber(Observer observer) {
+    observers.add(observer);
+  }
+
+  void removeSubscriber(Observer observer) {
+    observers.remove(observer);
+  }
+
+  void notifySubscribers(String n) {
+    for (Observer a in observers) {
+      a.notification(news, n);
     }
   }
 }
 
-class Observer {
+class Subscriber implements Observer {
   late String name;
-
-  Observer(this.name);
-
-  void notify(Notification notification) {
-    print(
-        "[${notification.timestamp.toIso8601String()}] Hey $name, ${notification.message}!");
+  Subscriber(String name) {
+    this.name = name;
   }
-}
 
-class CoffeeMaker extends Observable {
-  CoffeeMaker([List<Observer>? observers]) : super(observers);
-  void brew() {
-    print("Brewing the coffee...");
-    notify_observers(Notification.forNow("coffee's done"));
+  void notification(String handle, String a) {
+    print("${name} received news: ${handle} - NEWS: '${a}'\n");
   }
 }
 
 void main() {
-  var alisher = Observer("Alisher");
-  var bolat = Observer("Bolat");
-  var coffeeMaker = CoffeeMaker(List.from([alisher]));
-  coffeeMaker.registerObserver(bolat);
-  coffeeMaker.brew();
+  Store n1 = new Store("Shop.kz");
+  Subscriber s1 = new Subscriber("Alisher");
+  Subscriber s2 = new Subscriber("Bolat");
+  n1.addSubscriber(s1);
+  n1.addSubscriber(s2);
+  n1.sendNews("Summer sales!");
+  n1.removeSubscriber(s2);
+  n1.sendNews("Only in August");
 }
