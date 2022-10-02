@@ -1,18 +1,17 @@
 abstract class Subject {
-  String announce(String place);
+  String announce();
 }
 
 class Algebra implements Subject {
-  String announce(String place) => "solving complex algebra problems ${place}";
+  String announce() => "solving complex algebra problems ";
 }
 
 class Biology implements Subject {
-  String announce(String place) =>
-      "I like to studying different forms of life ${place}";
+  String announce() => "studying different forms of life ";
 }
 
 class Drawing implements Subject {
-  String announce(String place) => "drawing beautiful mountain views ${place}";
+  String announce() => "drawing beautiful mountain views";
 }
 
 class Student {
@@ -30,11 +29,9 @@ void main() {
   var bahyt = Student("Bahyt", BiologyStudent);
   var daulet = Student("Daulet", DrawingStudent);
 
-  final String roastOfTheDay = "at school";
-
   for (var person in [alisher, bahyt, daulet]) {
-    print("Hey ${person.name}, whats ur favorite subject?");
-    print(
-        "I'm enjoying ${person.preferredSubject.announce(roastOfTheDay)}!\r\n");
+    print("Hey ${person.name}, what do you love to do?");
+    print("I'm enjoying ${person.preferredSubject.announce()}!\r\n");
+    
   }
 }
