@@ -1,64 +1,60 @@
-abstract class Payment {
-  void pay(int price);
+abstract class Press {
+  void press(int price);
 }
 
-class CreditCard implements Payment {
+class Bench implements Press {
   late String name;
-  late String cardNumber;
 
-  CreditCard(this.name, this.cardNumber);
-  void pay(int price) {
-    print('${price} paid with Credit Card');
+  Bench(this.name);
+  void press(int weights) {
+    print('${name} Bench pressed ${weights + 20} kg');
   }
 }
 
-class Phone implements Payment {
-  late String emailid;
-  late String password;
+class SeatedLeg implements Press {
+  late String name;
 
-  Phone(this.emailid, this.password);
-  void pay(int price) {
-    print('${price} paid using Phone');
+  SeatedLeg(this.name);
+  void press(int weights) {
+    print('${name} seat leg pressed ${weights + 20} kg');
   }
 }
 
-class Item {
-  late String name;
-  late int price;
+class WeightPlate {
+  late int weight;
 
-  Item(this.name, this.price);
+  WeightPlate(this.weight);
 
-  int get getPrice => price;
-  String get getName => name;
+  int get getWeight => weight;
 }
 
-class ShoppingCart {
-  late List<Item> items = [];
-  void addItem(Item item) {
-    items.add(item);
+class Barbell {
+  late List<WeightPlate> plates = [];
+  void addWeight(WeightPlate plate) {
+    plates.add(plate);
   }
 
   int calculateTotal() {
     int sum = 0;
-    for (Item item in items) {
-      sum += item.getPrice;
+    for (WeightPlate plate in plates) {
+      sum += plate.getWeight;
     }
     return sum;
   }
 
-  void pay(Payment payment) {
-    int price = calculateTotal();
-    payment.pay(price);
+  void press(Press press) {
+    int weight = calculateTotal();
+    press.press(weight);
   }
 }
 
 void main() {
-  var cart = ShoppingCart();
-  var item1 = Item('Bread', 140);
-  var item2 = Item('Milk', 280);
-  var item3 = Item('Milk', 280);
-  cart.addItem(item1);
-  cart.addItem(item2);
-  cart.addItem(item3);
-  cart.pay(Phone('good071104@gmail.com', 'password'));
+  var barbell = Barbell();
+  var plate1 = WeightPlate(20);
+  var plate2 = WeightPlate(30);
+  barbell.addWeight(plate1);
+  barbell.addWeight(plate2);
+
+  barbell.press(Bench('Alisher'));
+  barbell.press(SeatedLeg('Alisher'));
 }
