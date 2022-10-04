@@ -1,15 +1,14 @@
 abstract class Payment {
-  void pay(int amount);
+  void pay(int price);
 }
 
 class CreditCard implements Payment {
   late String name;
   late String cardNumber;
-  late String cvv;
-  late String dateOfExpiry;
-  CreditCard(this.name, this.cardNumber, this.cvv, this.dateOfExpiry);
-  void pay(int amount) {
-    print('${amount} paid with CReadit Card');
+
+  CreditCard(this.name, this.cardNumber);
+  void pay(int price) {
+    print('${price} paid with Credit Card');
   }
 }
 
@@ -18,8 +17,8 @@ class Phone implements Payment {
   late String password;
 
   Phone(this.emailid, this.password);
-  void pay(int amount) {
-    print('${amount} paid using Phone');
+  void pay(int price) {
+    print('${price} paid using Phone');
   }
 }
 
@@ -48,8 +47,8 @@ class ShoppingCart {
   }
 
   void pay(Payment payment) {
-    int amount = calculateTotal();
-    payment.pay(amount);
+    int price = calculateTotal();
+    payment.pay(price);
   }
 }
 
@@ -57,8 +56,9 @@ void main() {
   var cart = ShoppingCart();
   var item1 = Item('Bread', 140);
   var item2 = Item('Milk', 280);
+  var item3 = Item('Milk', 280);
   cart.addItem(item1);
   cart.addItem(item2);
+  cart.addItem(item3);
   cart.pay(Phone('good071104@gmail.com', 'password'));
 }
-
