@@ -2,13 +2,13 @@ abstract class Observer {
   void notification(String handle, String news);
 }
 
-abstract class Subject {
+abstract class Observed {
   void addSubscriber(Observer observer);
   void removeSubscriber(Observer observer);
   void notifySubscribers(String email);
 }
 
-class Store implements Subject {
+class Store implements Observed {
   late List<Observer> observers = [];
   late String name;
   late String news;
