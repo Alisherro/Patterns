@@ -13,13 +13,13 @@ class CreditCard implements Payment {
   }
 }
 
-class PayPal implements Payment {
+class Phone implements Payment {
   late String emailid;
   late String password;
 
-  PayPal(this.emailid, this.password);
+  Phone(this.emailid, this.password);
   void pay(int amount) {
-    print('${amount} paid using PayPal');
+    print('${amount} paid using Phone');
   }
 }
 
@@ -59,5 +59,6 @@ void main() {
   var item2 = Item('Milk', 280);
   cart.addItem(item1);
   cart.addItem(item2);
-  cart.pay(PayPal('good071104@gmail.com', 'password'));
+  cart.pay(Phone('good071104@gmail.com', 'password'));
 }
+
