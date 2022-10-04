@@ -22,20 +22,16 @@ class SportsCar extends CarDecorator {
 
   void assemble() {
     super.assemble();
-    print(" Adding features of Sports Car.");
+    print("  Adding features of Sports Car.");
   }
 }
 
 class LuxuryCar extends CarDecorator {
   LuxuryCar(Car car) : super(car);
 
-  create(Car c) {
-    CarDecorator(c);
-  }
-
   void assemble() {
     super.assemble();
-    print(" Adding features of Luxury Car.");
+    print("  Adding features of Luxury Car.");
   }
 }
 
