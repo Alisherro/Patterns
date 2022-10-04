@@ -40,10 +40,11 @@ class LuxuryCar extends CarDecorator {
 }
 
 void main() {
-  Car sportsCar = new SportsCar(new BasicCar());
+  var car = new BasicCar();
+  Car sportsCar = new SportsCar(car);
   sportsCar.assemble();
   print("\n*****");
 
-  Car sportsLuxuryCar = new SportsCar(new LuxuryCar(new BasicCar()));
+  Car sportsLuxuryCar = new SportsCar(new LuxuryCar(car));
   sportsLuxuryCar.assemble();
 }
