@@ -1,48 +1,44 @@
-abstract class Shape {
-  String draw();
+abstract class Gun {
+  String characteristics();
 }
 
-class Square implements Shape {
-  String draw() => "Square";
+class Ak74 implements Gun {
+  String characteristics() => "Ak74";
 }
 
-class Triangle implements Shape {
-  String draw() => "Triangle";
+class M4A4 implements Gun {
+  String characteristics() => "M4A4";
 }
 
-abstract class ShapeDecorator implements Shape {
-  final Shape shape;
+abstract class GunDecorator implements Gun {
+  final Gun gun;
 
-  ShapeDecorator(this.shape);
+  GunDecorator(this.gun);
 
-  String draw();
+  String characteristics();
 }
 
-class GreenShapeDecorator extends ShapeDecorator {
-  GreenShapeDecorator(Shape shape) : super(shape);
+class MufflerGunDecorator extends GunDecorator {
+  MufflerGunDecorator(Gun gun) : super(gun);
 
   @override
-  String draw() => "Green ${shape.draw()}";
+  String characteristics() => "${gun.characteristics()} with silencer";
 }
 
-class BlueShapeDecorator extends ShapeDecorator {
-  BlueShapeDecorator(Shape shape) : super(shape);
+class SightGunDecorator extends GunDecorator {
+  SightGunDecorator(Gun gun) : super(gun);
 
   @override
-  String draw() => "Blue ${shape.draw()}";
+  String characteristics() => "${gun.characteristics()} with optical sight";
 }
 
 void main() {
-  final square = Square();
-  print(square.draw());
+  final m4a4 = M4A4();
+  print(m4a4.characteristics());
 
-  final greenSquare = GreenShapeDecorator(square);
-  print(greenSquare.draw());
+  final silenceGun = MufflerGunDecorator(m4a4);
+  print(silenceGun.characteristics());
 
-  final blueGreenSquare = BlueShapeDecorator(greenSquare);
-  print(blueGreenSquare.draw());
-
-  final blueGreenGreenGreenGreenSquare = GreenShapeDecorator(BlueShapeDecorator(GreenShapeDecorator(
-      GreenShapeDecorator(GreenShapeDecorator(GreenShapeDecorator(square))))));
-  print(blueGreenGreenGreenGreenSquare.draw());
+  final sightGun = SightGunDecorator(silenceGun);
+  print(sightGun.characteristics());
 }
